@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const App = () => {
-  return <div>초기 환경 세팅 중</div>
-}
+  return <div>웹팩 데브 서버 세팅 중..</div>;
+};
 
-export default App
+export default App;
