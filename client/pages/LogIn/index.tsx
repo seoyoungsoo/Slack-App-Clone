@@ -3,8 +3,13 @@ import { Success, Form, Error, Label, Input, LinkContainer, Button, Header } fro
 import axios from 'axios';
 import React, { useCallback, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import useSWR from 'swr';
+import fetcher from '@utils/fetcher';
 
 const LogIn = () => {
+  const { data, error, revalidate } = useSWR('http://localhost:3095/api/users', fetcher, {
+    dedupingInterval: 100000,
+  });
   const [logInError, setLogInError] = useState(false);
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
@@ -14,10 +19,18 @@ const LogIn = () => {
       setLogInError(false);
 
       axios
-        .post('/api/users/login', { email, password })
-        .then((response) => {})
-        .catch((error) => {
-          setLogInError(error.response?.data?.statusCode === 401);
+        .post(
+          '/api/users/login',
+          { email, password },
+          {
+            withCredentials: true,
+          },
+        )
+        .then((res) => {
+          revalidate();
+        })
+        .catch((err) => {
+          setLogInError(err.response?.data?.statusCode === 401);
         });
     },
     [email, password],
