@@ -4,7 +4,7 @@ import React from 'react';
 import { FC } from 'react';
 import { useCallback } from 'react';
 import { Redirect } from 'react-router';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 
 const Workspace: FC = ({ children }) => {
   const { data, error, revalidate } = useSWR('http://localhost:3095/api/users', fetcher);
@@ -15,7 +15,7 @@ const Workspace: FC = ({ children }) => {
         withCredentials: true,
       })
       .then(() => {
-        revalidate();
+        mutate('http://localhost:3095/api/users', false);
       });
   }, []);
 

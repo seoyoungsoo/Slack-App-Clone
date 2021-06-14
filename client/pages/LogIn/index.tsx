@@ -7,7 +7,7 @@ import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
 
 const LogIn = () => {
-  const { data, error, revalidate } = useSWR('http://localhost:3095/api/users', fetcher);
+  const { data, error, revalidate, mutate } = useSWR('http://localhost:3095/api/users', fetcher);
   const [logInError, setLogInError] = useState(false);
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
@@ -25,7 +25,7 @@ const LogIn = () => {
           },
         )
         .then((res) => {
-          revalidate();
+          mutate(res.data, false);
         })
         .catch((err) => {
           setLogInError(err.response?.data?.statusCode === 401);
