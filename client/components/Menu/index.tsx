@@ -6,7 +6,7 @@ import { timeStamp } from 'console';
 // JS는 ProtoTypes 사용
 interface Props {
   show: boolean;
-  onCloseModal: () => void;
+  onCloseModal: (e: any) => void;
   style: CSSProperties;
   closeButton?: boolean;
 }
