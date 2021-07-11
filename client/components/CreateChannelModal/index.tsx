@@ -21,7 +21,7 @@ const CreateChannelModal: VFC<Props> = ({ show, onCloseModal, setShowCreateChann
     data: userData,
     error,
     revalidate,
-  } = useSWR<IUser | false>('http://localhost:3095/api/users', fetcher, {
+  } = useSWR<IUser | false>('/api/users', fetcher, {
     dedupingInterval: 2000,
   });
   const { data: channelData, revalidate: revalidateChannel } = useSWR<IChannel[]>(
