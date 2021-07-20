@@ -25,7 +25,7 @@ const LogIn = () => {
           },
         )
         .then((res) => {
-          mutate(res.data, false);
+          revalidate();
         })
         .catch((err) => {
           setLogInError(err.response?.data?.statusCode === 401);
