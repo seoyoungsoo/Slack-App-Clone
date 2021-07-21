@@ -43,7 +43,7 @@ const Chat: VFC<Props> = ({ data }) => {
       <div className="chat-text">
         <div className="chat-user">
           <b>{user.nickname}</b>
-          <span>{dayjs(data.createdAt).format('h:mm A')}</span>
+          <span>{dayjs(data.createdAt).format('A h:mm')}</span>
         </div>
         <p>{result}</p>
       </div>
